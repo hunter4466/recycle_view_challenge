@@ -1,9 +1,9 @@
-package com.ravnnerdery.recyclechallenge.database;
+package com.ravnnerdery.recyclechallenge.database
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.PrimaryKey;
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "comments_table")
 class Comment (
