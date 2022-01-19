@@ -20,13 +20,9 @@ class postdetails : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.postdetails_fragment, container, false)
-    }
+        viewModel = ViewModelProvider(this)[PostdetailsViewModel::class.java]
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(PostdetailsViewModel::class.java)
-        // TODO: Use the ViewModel
+        return inflater.inflate(R.layout.postdetails_fragment, container, false)
     }
 
 }
