@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/postlist">
+
+    <fragment
+        android:id="@+id/postlist"
+        android:name="com.ravnnerdery.recyclechallenge.postlist.postlist"
+        android:label="postlist_fragment"
+        tools:layout="@layout/postlist_fragment" >
+        <action
+            android:id="@+id/action_postlist_to_postdetails"
+            app:destination="@id/postdetails" />
+    </fragment>
+    <fragment
+        android:id="@+id/postdetails"
+        android:name="com.ravnnerdery.recyclechallenge.postdetails.postdetails"
+        android:label="postdetails_fragment"
+        tools:layout="@layout/postdetails_fragment" >
+        <action
+            android:id="@+id/action_postdetails_to_postlist"
+            app:destination="@id/postlist" />
+    </fragment>
+</navigation>
