@@ -20,7 +20,6 @@ import com.ravnnerdery.recyclechallenge.postlist.PostlistFragmentDirections
 
 
 class PostdetailsFragment : Fragment() {
-    private lateinit var viewModel: PostdetailsViewModel
     private lateinit var commentsContainer: LinearLayout
     private lateinit var comments: LiveData<List<Comment>>
     override fun onCreateView(

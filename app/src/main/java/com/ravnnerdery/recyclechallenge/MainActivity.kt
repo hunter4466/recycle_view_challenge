@@ -12,14 +12,4 @@ class MainActivity() : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
-    companion object {
-        lateinit var database: DatabaseDao
-    }
-
-    override fun onDestroy() {
-        database.deletePosts()
-        database.deleteComments()
-        println("DESTROYED DATABASE")
-        super.onDestroy()
-    }
 }

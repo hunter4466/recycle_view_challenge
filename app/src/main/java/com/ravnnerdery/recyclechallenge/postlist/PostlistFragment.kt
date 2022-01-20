@@ -11,7 +11,9 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.ravnnerdery.recyclechallenge.R
 import com.ravnnerdery.recyclechallenge.database.PostsDatabase
 import com.ravnnerdery.recyclechallenge.database.tables.Post
@@ -21,7 +23,7 @@ import kotlinx.android.synthetic.main.postlist_fragment.view.*
 class PostlistFragment : Fragment() {
 
     private lateinit var posts: LiveData<List<Post>>
-    private lateinit var buttonsContainer: LinearLayout
+    private lateinit var buttonsContainer: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,16 +33,17 @@ class PostlistFragment : Fragment() {
             inflater, R.layout.postlist_fragment, container, false
         )
         val application = requireNotNull(this.activity).application
-
         val dataSource = PostsDatabase.getInstance(application).databaseDao
         val viewModelFactory = PostlistViewModelFactory(dataSource, application)
         val postListViewModel = ViewModelProvider(this, viewModelFactory)
             .get(PostlistViewModel::class.java)
         binding.postListViewModel = postListViewModel
         binding.lifecycleOwner = this
+        val adapter = PostsAdapter()
+        binding.postListRecycler.adapter = adapter
         posts = postListViewModel.allPostsFromDatabase
-        buttonsContainer = binding.buttonsScrollable
-        posts.observe(this,{
+        buttonsContainer = binding.postListRecycler
+        /*posts.observe(this,{
             newData -> for(elm in newData){
                 val newBtn = Button(context, null, R.style.btnStyle, R.style.btnStyle)
                 newBtn.text = "${elm.title} \n \n ${elm.body}"
@@ -48,6 +51,11 @@ class PostlistFragment : Fragment() {
                     requireView().findNavController().navigate(PostlistFragmentDirections.actionPostlistFragmentToPostdetailsFragment(elm.id))
                 }
                 buttonsContainer.addView(newBtn)
+            }
+        })*/
+        posts.observe(viewLifecycleOwner, Observer {
+            it?.let{
+                adapter.data = it
             }
         })
 
