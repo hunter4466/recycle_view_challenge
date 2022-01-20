@@ -1,10 +1,7 @@
 package com.ravnnerdery.recyclechallenge.postlist
 
 import android.app.Application
-import android.view.animation.Transformation
-import android.widget.Button
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.Transformations
 import com.ravnnerdery.recyclechallenge.database.tables.Comment
 import com.ravnnerdery.recyclechallenge.database.DatabaseDao
 import com.ravnnerdery.recyclechallenge.database.tables.Post
@@ -65,7 +62,9 @@ class PostlistViewModel(
     }
     private suspend fun insertSinglePost(post: Post) {
         return withContext(Dispatchers.IO){
-            database.insertPost(post)
+            val sample = database.getSpecificPost(post.id)
+            if(sample.size === 0) database.insertPost(post)
+
         }
 
     }
@@ -77,7 +76,8 @@ class PostlistViewModel(
     }
     private suspend fun insertSingleComment(comment: Comment) {
         return withContext(Dispatchers.IO){
-            database.insertComment(comment)
+            val sample = database.getSpecificComment(comment.id)
+            if(sample.size === 0)database.insertComment(comment)
         }
     }
     private fun clearDatabase(){

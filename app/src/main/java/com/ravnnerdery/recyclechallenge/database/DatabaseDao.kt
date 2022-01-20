@@ -13,6 +13,12 @@ interface DatabaseDao {
     @Insert
     fun insertPost(post: Post)
 
+    @Query("SELECT * FROM posts_table WHERE id = :key")
+    fun getSpecificPost(key: Long): Array<Post>
+
+    @Query("SELECT * FROM comments_table WHERE id = :key")
+    fun getSpecificComment(key: Long): Array<Comment>
+
     @Query("DELETE FROM comments_table")
     fun deleteComments()
 
@@ -23,7 +29,7 @@ interface DatabaseDao {
     fun getPosts(): LiveData<List<Post>>
 
     @Query("SELECT * from comments_table where post_id = :key")
-    fun getComments(key: Long): Array<Comment>
+    fun getComments(key: Long): LiveData<List<Comment>>
 
 
 }

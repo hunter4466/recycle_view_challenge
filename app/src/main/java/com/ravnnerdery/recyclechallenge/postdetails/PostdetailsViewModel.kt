@@ -10,10 +10,8 @@ import kotlinx.coroutines.Job
 
 class PostdetailsViewModel(
     val database: DatabaseDao,
-    application: Application
+    application: Application,
+    val id: Long
 ) : AndroidViewModel(application) {
-
-    private var viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
+    val commentsFromDatabase = database.getComments(id)
 }

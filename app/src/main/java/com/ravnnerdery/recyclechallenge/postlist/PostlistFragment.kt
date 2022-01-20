@@ -37,7 +37,7 @@ class PostlistFragment : Fragment() {
         val postListViewModel = ViewModelProvider(this, viewModelFactory)
             .get(PostlistViewModel::class.java)
         binding.postListViewModel = postListViewModel
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
         posts = postListViewModel.allPostsFromDatabase
         buttonsContainer = binding.buttonsScrollable
         posts.observe(this,{
@@ -48,7 +48,7 @@ class PostlistFragment : Fragment() {
                     requireView().findNavController().navigate(PostlistFragmentDirections.actionPostlistFragmentToPostdetailsFragment(elm.id))
                 }
                 buttonsContainer.addView(newBtn)
-        }
+            }
         })
 
         return binding.root
