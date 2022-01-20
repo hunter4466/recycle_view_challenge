@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.ravnnerdery.recyclechallenge.R
 
-class postdetails : Fragment() {
+class PostdetailsFragment : Fragment() {
 
     companion object {
-        fun newInstance() = postdetails()
+        fun newInstance() = PostdetailsFragment()
     }
 
     private lateinit var viewModel: PostdetailsViewModel
@@ -20,8 +20,7 @@ class postdetails : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProvider(this)[PostdetailsViewModel::class.java]
-
+        viewModel = ViewModelProvider(this).get(PostdetailsViewModel::class.java)
         return inflater.inflate(R.layout.postdetails_fragment, container, false)
     }
 

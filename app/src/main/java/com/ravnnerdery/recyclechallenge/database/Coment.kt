@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "comments_table")
 class Comment (
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0L,
+    @PrimaryKey(autoGenerate = false)
+    var id: Long,
     @ColumnInfo(name = "comment_name")
     var name: String,
     @ColumnInfo(name = "comment_email")

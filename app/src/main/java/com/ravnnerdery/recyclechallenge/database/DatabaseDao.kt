@@ -5,8 +5,11 @@ import androidx.room.*
 @Dao
 interface DatabaseDao {
     @Insert
-    fun insertComment(comment: Comment) {
-    }
+    fun insertComment(comment: Comment)
+
+    @Insert
+    fun insertPost(post: Post)
+
     @Query("DELETE FROM comments_table")
     fun deleteComments()
 

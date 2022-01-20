@@ -20,7 +20,7 @@ class PostlistFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProvider(this).get(PostlistViewModel::class.java)
+        viewModel = ViewModelProvider(this)[PostlistViewModel::class.java]
 
         return inflater.inflate(R.layout.postlist_fragment, container, false)
     }

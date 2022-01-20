@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "posts_table")
 class Post (
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0L,
+    @PrimaryKey(autoGenerate = false)
+    var id: Long,
     @ColumnInfo(name = "post_title")
     var title: String,
     @ColumnInfo(name = "post_body")
