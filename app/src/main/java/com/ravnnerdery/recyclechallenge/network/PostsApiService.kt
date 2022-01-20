@@ -1,7 +1,7 @@
 package com.ravnnerdery.recyclechallenge.network
 
-import com.ravnnerdery.recyclechallenge.database.Comment
-import com.ravnnerdery.recyclechallenge.database.Post
+import com.ravnnerdery.recyclechallenge.database.tables.Comment
+import com.ravnnerdery.recyclechallenge.database.tables.Post
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Call

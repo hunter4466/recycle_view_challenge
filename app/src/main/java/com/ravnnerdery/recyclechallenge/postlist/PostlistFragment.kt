@@ -6,23 +6,31 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import com.ravnnerdery.recyclechallenge.R
+import com.ravnnerdery.recyclechallenge.database.PostsDatabase
+import com.ravnnerdery.recyclechallenge.databinding.PostlistFragmentBinding
 
 class PostlistFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = PostlistFragment()
-    }
-
     private lateinit var viewModel: PostlistViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProvider(this)[PostlistViewModel::class.java]
+        val binding: PostlistFragmentBinding = DataBindingUtil.inflate(
+            inflater, R.layout.postlist_fragment, container, false
+        )
+        val application = requireNotNull(this.activity).application
 
-        return inflater.inflate(R.layout.postlist_fragment, container, false)
+        val dataSource = PostsDatabase.getInstance(application).databaseDao
+        val viewModelFactory = PostlistViewModelFactory(dataSource, application)
+        val postListViewModel = ViewModelProvider(this, viewModelFactory)
+            .get(PostlistViewModel::class.java)
+        binding.postListViewModel = postListViewModel
+        binding.setLifecycleOwner(this)
+
+        return binding.root
     }
 
 }

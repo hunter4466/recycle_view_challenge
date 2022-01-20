@@ -1,12 +1,11 @@
-package com.ravnnerdery.recyclechallenge.database
+package com.ravnnerdery.recyclechallenge.database.tables
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "posts_table")
-class Post (
+class Post(
     @PrimaryKey(autoGenerate = false)
     var id: Long,
     @ColumnInfo(name = "post_title")

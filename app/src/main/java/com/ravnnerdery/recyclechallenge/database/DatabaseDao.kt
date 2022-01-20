@@ -1,6 +1,8 @@
 package com.ravnnerdery.recyclechallenge.database
 
 import androidx.room.*
+import com.ravnnerdery.recyclechallenge.database.tables.Comment
+import com.ravnnerdery.recyclechallenge.database.tables.Post
 
 @Dao
 interface DatabaseDao {
