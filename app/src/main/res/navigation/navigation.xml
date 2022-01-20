@@ -3,24 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/postlist">
-
+    app:startDestination="@id/postlistFragment">
     <fragment
-        android:id="@+id/postlist"
-        android:name="com.ravnnerdery.recyclechallenge.postlist.postlist"
-        android:label="postlist_fragment"
-        tools:layout="@layout/postlist_fragment" >
-        <action
-            android:id="@+id/action_postlist_to_postdetails"
-            app:destination="@id/postdetails" />
-    </fragment>
-    <fragment
-        android:id="@+id/postdetails"
-        android:name="com.ravnnerdery.recyclechallenge.postdetails.postdetails"
+        android:id="@+id/postdetailsFragment"
+        android:name="com.ravnnerdery.recyclechallenge.postdetails.PostdetailsFragment"
         android:label="postdetails_fragment"
         tools:layout="@layout/postdetails_fragment" >
         <action
-            android:id="@+id/action_postdetails_to_postlist"
-            app:destination="@id/postlist" />
+            android:id="@+id/action_postdetailsFragment_to_postlistFragment"
+            app:destination="@id/postlistFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postlistFragment"
+        android:name="com.ravnnerdery.recyclechallenge.postlist.PostlistFragment"
+        android:label="postlist_fragment"
+        tools:layout="@layout/postlist_fragment" >
+        <action
+            android:id="@+id/action_postlistFragment_to_postdetailsFragment"
+            app:destination="@id/postdetailsFragment" />
     </fragment>
 </navigation>

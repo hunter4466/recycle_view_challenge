@@ -1,15 +1,18 @@
 package com.ravnnerdery.recyclechallenge.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 
 @Dao
 interface DatabaseDao {
     @Insert
     fun insertComment(comment: Comment) {
     }
+    @Query("DELETE FROM comments_table")
+    fun deleteComments()
+
+    @Query("DELETE FROM posts_table")
+    fun deletePosts()
+
     @Query("SELECT * from posts_table")
     fun getPosts(): Array<Post>
 
