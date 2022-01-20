@@ -29,10 +29,9 @@ class PostlistViewModel(
         super.onCleared()
     }
 
-    var postList: MutableList<Post> = mutableListOf()
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    private val posts = database.getPosts()
+    val allPostsFromDatabase = database.getPosts()
     private fun loadFromApiAndSetIntoDatabase() {
         PostsApi.retrofitService.getPosts().enqueue(object: Callback<List<Post>> {
             override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
