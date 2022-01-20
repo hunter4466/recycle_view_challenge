@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_postdetailsFragment_to_postlistFragment"
             app:destination="@id/postlistFragment" />
+        <argument
+            android:name="id"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/postlistFragment"

@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
+import androidx.navigation.findNavController
 import com.ravnnerdery.recyclechallenge.R
 import com.ravnnerdery.recyclechallenge.database.PostsDatabase
 import com.ravnnerdery.recyclechallenge.database.tables.Post
@@ -41,8 +42,11 @@ class PostlistFragment : Fragment() {
         buttonsContainer = binding.buttonsScrollable
         posts.observe(this,{
             newData -> for(elm in newData){
-                val newBtn = Button(context)
-                newBtn.text = "${elm.title} ${elm.body}"
+                val newBtn = Button(context, null, R.style.btnStyle, R.style.btnStyle)
+                newBtn.text = "${elm.title} \n \n ${elm.body}"
+                newBtn.setOnClickListener{
+                    requireView().findNavController().navigate(PostlistFragmentDirections.actionPostlistFragmentToPostdetailsFragment(elm.id))
+                }
                 buttonsContainer.addView(newBtn)
         }
         })
@@ -51,3 +55,4 @@ class PostlistFragment : Fragment() {
     }
 
 }
+

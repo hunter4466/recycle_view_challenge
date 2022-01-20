@@ -24,7 +24,6 @@ class PostlistViewModel(
     }
 
     override fun onCleared() {
-        println("<<<<<<<<<<<<<<<<<<onCLearedCalled>>>>>>>>>>>>>>>>>")
         clearDatabase()
         super.onCleared()
     }

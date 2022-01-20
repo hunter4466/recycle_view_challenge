@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="btnStyle" >
+    <style name="btnStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">10dp</item>
-        <item name="android:onClick">onButtonClicked</item>
+        <item name="android:padding">30dp</item>
         <item name="android:typeface">monospace</item>
-        <item name="android:textSize">12pt</item>
+        <item name="android:textSize">8pt</item>
+        <item name="android:shape">rectangle</item>
+        <item name="android:strokeColor">#736fe9</item>
+        <item name="android:strokeWidth">2</item>
+        <item name="android:bottomRightRadius">3dp</item>
     </style>
 </resources>

@@ -22,7 +22,7 @@ abstract class PostsDatabase: RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         PostsDatabase::class.java,
-                        "posts_history_database_fourteen"
+                        "posts_history_database_sevenTeen"
                     )
                         .fallbackToDestructiveMigration()
                         .build()
