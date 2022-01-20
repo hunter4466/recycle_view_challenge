@@ -1,15 +1,15 @@
 package com.ravnnerdery.recyclechallenge.postlist
 
 import android.app.Application
+import android.view.animation.Transformation
+import android.widget.Button
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.Transformations
 import com.ravnnerdery.recyclechallenge.database.tables.Comment
 import com.ravnnerdery.recyclechallenge.database.DatabaseDao
 import com.ravnnerdery.recyclechallenge.database.tables.Post
 import com.ravnnerdery.recyclechallenge.network.PostsApi
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,10 +22,17 @@ class PostlistViewModel(
     init {
         loadFromApiAndSetIntoDatabase()
     }
-    var postList: List<Post> = listOf()
+
+    override fun onCleared() {
+        println("<<<<<<<<<<<<<<<<<<onCLearedCalled>>>>>>>>>>>>>>>>>")
+        clearDatabase()
+        super.onCleared()
+    }
+
+    var postList: MutableList<Post> = mutableListOf()
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
+    private val posts = database.getPosts()
     private fun loadFromApiAndSetIntoDatabase() {
         PostsApi.retrofitService.getPosts().enqueue(object: Callback<List<Post>> {
             override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
@@ -54,19 +61,37 @@ class PostlistViewModel(
     private fun addPostToDatabase(id: Long, title: String, body: String){
         uiScope.launch {
             val newPost = Post(id, title, body)
-            database.insertPost(newPost)
+            insertSinglePost(newPost)
+
         }
+    }
+    private suspend fun insertSinglePost(post: Post) {
+        return withContext(Dispatchers.IO){
+            database.insertPost(post)
+        }
+
     }
     private fun addCommentToDatabase(id: Long, name: String, email: String, body: String, postId: Long){
         uiScope.launch {
             val newComment = Comment(id, name, email, body, postId)
-            database.insertComment(newComment)
+            insertSingleComment(newComment)
+        }
+    }
+    private suspend fun insertSingleComment(comment: Comment) {
+        return withContext(Dispatchers.IO){
+            database.insertComment(comment)
+        }
+    }
+    private fun clearDatabase(){
+        uiScope.launch {
+            clearAllDatabase()
+        }
+    }
+    private suspend fun clearAllDatabase(){
+        return withContext(Dispatchers.IO){
+            database.deletePosts()
+            database.deleteComments()
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        database.deletePosts()
-        database.deleteComments()
-    }
 }

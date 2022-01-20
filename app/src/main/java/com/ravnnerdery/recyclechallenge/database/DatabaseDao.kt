@@ -1,5 +1,6 @@
 package com.ravnnerdery.recyclechallenge.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.ravnnerdery.recyclechallenge.database.tables.Comment
 import com.ravnnerdery.recyclechallenge.database.tables.Post
@@ -19,9 +20,10 @@ interface DatabaseDao {
     fun deletePosts()
 
     @Query("SELECT * from posts_table")
-    fun getPosts(): Array<Post>
+    fun getPosts(): LiveData<List<Post>>
 
     @Query("SELECT * from comments_table where post_id = :key")
     fun getComments(key: Long): Array<Comment>
+
 
 }

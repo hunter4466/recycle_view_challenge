@@ -9,10 +9,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.ravnnerdery.recyclechallenge.R
 import com.ravnnerdery.recyclechallenge.database.PostsDatabase
+import com.ravnnerdery.recyclechallenge.database.tables.Post
 import com.ravnnerdery.recyclechallenge.databinding.PostlistFragmentBinding
 
 class PostlistFragment : Fragment() {
     private lateinit var viewModel: PostlistViewModel
+    private lateinit var posts: Post
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +31,7 @@ class PostlistFragment : Fragment() {
             .get(PostlistViewModel::class.java)
         binding.postListViewModel = postListViewModel
         binding.setLifecycleOwner(this)
+
 
         return binding.root
     }
