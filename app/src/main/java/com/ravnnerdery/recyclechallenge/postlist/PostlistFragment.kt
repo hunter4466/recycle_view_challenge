@@ -43,16 +43,6 @@ class PostlistFragment : Fragment() {
         binding.postListRecycler.adapter = adapter
         posts = postListViewModel.allPostsFromDatabase
         buttonsContainer = binding.postListRecycler
-        /*posts.observe(this,{
-            newData -> for(elm in newData){
-                val newBtn = Button(context, null, R.style.btnStyle, R.style.btnStyle)
-                newBtn.text = "${elm.title} \n \n ${elm.body}"
-                newBtn.setOnClickListener{
-                    requireView().findNavController().navigate(PostlistFragmentDirections.actionPostlistFragmentToPostdetailsFragment(elm.id))
-                }
-                buttonsContainer.addView(newBtn)
-            }
-        })*/
         posts.observe(viewLifecycleOwner, Observer {
             it?.let{
                 adapter.data = it
