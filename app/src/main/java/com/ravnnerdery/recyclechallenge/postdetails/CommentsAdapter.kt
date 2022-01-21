@@ -1,35 +1,49 @@
 package com.ravnnerdery.recyclechallenge.postdetails
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ravnnerdery.recyclechallenge.R
 import com.ravnnerdery.recyclechallenge.database.tables.Comment
 
+class CommentsAdapter: ListAdapter<Comment, CommentsAdapter.ViewHolder>(CommentsDiffCallBack()) {
 
-class CommentTextViewHolder(val commentTextView: TextView): RecyclerView.ViewHolder(commentTextView)
 
-class CommentsAdapter: RecyclerView.Adapter<CommentTextViewHolder>() {
-    var data = listOf<Comment>()
-
-        @SuppressLint("NotifyDataSetChanged")
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
-
-    override fun getItemCount(): Int = data.size
-
-    override fun onBindViewHolder(holder: CommentTextViewHolder, position: Int) {
-        val item = data[position]
-        (item.name + " \n \n "+ item.email+ " \n \n " + item.body+ " \n \n " + "----------------------------------").also { holder.commentTextView.text = it }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = getItem(position)
+        holder.bind(item)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentTextViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.comment_text, parent, false) as TextView
-        return CommentTextViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder.from(parent)
+    }
+
+        class ViewHolder private constructor (val commentTextView: TextView): RecyclerView.ViewHolder(commentTextView){
+        fun bind(item: Comment){
+            (item.name + " \n \n "+ item.email+ " \n \n " + item.body+ " \n \n " + "----------------------------------").also { commentTextView.text = it }
+        }
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val view = layoutInflater.inflate(R.layout.comment_text, parent, false) as TextView
+                return ViewHolder(view)
+            }
+        }
+    }
+
+
+}
+
+class CommentsDiffCallBack : DiffUtil.ItemCallback<Comment>() {
+    override fun areItemsTheSame(oldItem: Comment, newItem: Comment): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: Comment, newItem: Comment): Boolean {
+        return oldItem.id == newItem.id
     }
 }

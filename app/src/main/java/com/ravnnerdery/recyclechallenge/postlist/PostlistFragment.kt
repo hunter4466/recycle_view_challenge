@@ -31,8 +31,8 @@ class PostlistFragment : Fragment() {
         val dataSource = PostsDatabase.getInstance(application).databaseDao
         val viewModelFactory = PostlistViewModelFactory(dataSource, application)
         val postListViewModel = ViewModelProvider(this, viewModelFactory)[PostlistViewModel::class.java]
+        val swypeContainer = binding.postListSwypeContainer
         binding.postListViewModel = postListViewModel
-        binding.lifecycleOwner = this
 
         val adapter = PostsAdapter()
         binding.postListRecycler.adapter = adapter
@@ -44,6 +44,13 @@ class PostlistFragment : Fragment() {
                 adapter.submitList(it)
             }
         })
+
+        swypeContainer.setOnRefreshListener {
+            adapter.notifyDataSetChanged()
+            posts.observe(viewLifecycleOwner, {
+                swypeContainer.isRefreshing = false
+            })
+        }
 
         return binding.root
     }

@@ -35,8 +35,8 @@ class PostdetailsFragment : Fragment() {
         val viewModelFactory = PostdetailsViewModelFactory(dataSource, application, args.id)
         val postdetailsViewModel = ViewModelProvider(this, viewModelFactory)
             .get(PostdetailsViewModel::class.java)
+        val swypeContainer = binding.postDetailsSwypeContainer
         binding.postdetailsViewModel = postdetailsViewModel
-        binding.setLifecycleOwner(this)
 
         val adapter = CommentsAdapter()
         binding.commentsRecycler.adapter = adapter
@@ -45,9 +45,15 @@ class PostdetailsFragment : Fragment() {
 
         comments.observe(viewLifecycleOwner,{
             it?.let{
-                adapter.data = it
+                adapter.submitList(it)
             }
         })
+        swypeContainer.setOnRefreshListener {
+            adapter.notifyDataSetChanged()
+            comments.observe(viewLifecycleOwner, {
+                swypeContainer.isRefreshing = false
+            })
+        }
 
 
 
