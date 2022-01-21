@@ -12,6 +12,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#33050505"
+        android:backgroundTint="#33050505"
         android:orientation="vertical">
 
         <TextView
@@ -29,7 +31,7 @@
                 android:id="@+id/commentsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
             </LinearLayout>
         </ScrollView>
