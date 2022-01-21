@@ -3,12 +3,14 @@ package com.ravnnerdery.recyclechallenge.postdetails
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ravnnerdery.recyclechallenge.R
 import com.ravnnerdery.recyclechallenge.database.tables.Comment
+import kotlinx.android.synthetic.main.comment_text.view.*
 
 class CommentsAdapter: ListAdapter<Comment, CommentsAdapter.ViewHolder>(CommentsDiffCallBack()) {
 
@@ -22,14 +24,16 @@ class CommentsAdapter: ListAdapter<Comment, CommentsAdapter.ViewHolder>(Comments
         return ViewHolder.from(parent)
     }
 
-        class ViewHolder private constructor (val commentTextView: TextView): RecyclerView.ViewHolder(commentTextView){
+        class ViewHolder private constructor (val commentLinearLayout: LinearLayout): RecyclerView.ViewHolder(commentLinearLayout){
         fun bind(item: Comment){
-            (item.name + " \n \n "+ item.email+ " \n \n " + item.body+ " \n \n " + "----------------------------------").also { commentTextView.text = it }
+            commentLinearLayout.titleText.text = item.name[0].uppercaseChar() + item.name.substring(1)
+            commentLinearLayout.emailText.text = item.email
+            commentLinearLayout.contentText.text = item.body[0].uppercaseChar() + item.body.substring(1)
         }
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val view = layoutInflater.inflate(R.layout.comment_text, parent, false) as TextView
+                val view = layoutInflater.inflate(R.layout.comment_text, parent, false) as LinearLayout
                 return ViewHolder(view)
             }
         }

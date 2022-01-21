@@ -1,9 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="40dp"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp"
-    android:text="Placeholded text \n\n someemail@some.com \n\n some other text from the person some other text from the person some other text from the person"
-    android:textSize="24sp" />
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/custom_border"
+    android:backgroundTint="#FFFFFF"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="Some template text on title"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/emailText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="sometemplated@email.com" />
+
+    <TextView
+        android:id="@+id/contentText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body " />
+
+</LinearLayout>
