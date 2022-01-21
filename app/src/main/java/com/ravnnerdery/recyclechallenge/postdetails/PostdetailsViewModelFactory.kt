@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ravnnerdery.recyclechallenge.database.DatabaseDao
-import com.ravnnerdery.recyclechallenge.postlist.PostlistViewModel
 import java.lang.IllegalArgumentException
 
 class PostdetailsViewModelFactory(

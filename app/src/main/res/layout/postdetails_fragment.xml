@@ -20,21 +20,16 @@
             android:id="@+id/main_title_view"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="Comments"
-            android:textAlignment="center" />
+            android:text="@string/comments"
+            android:textAlignment="center"
+            android:textSize="28sp" />
 
-        <ScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/commentsRecycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:id="@+id/commentsContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-            </LinearLayout>
-        </ScrollView>
+            android:layout_height="match_parent"
+            android:backgroundTint="#000000"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
     </LinearLayout>

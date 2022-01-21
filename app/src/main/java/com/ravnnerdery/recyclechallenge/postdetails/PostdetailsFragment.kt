@@ -6,12 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.ravnnerdery.recyclechallenge.R
 import com.ravnnerdery.recyclechallenge.database.PostsDatabase
 import com.ravnnerdery.recyclechallenge.database.tables.Comment
@@ -20,7 +20,7 @@ import com.ravnnerdery.recyclechallenge.postlist.PostlistFragmentDirections
 
 
 class PostdetailsFragment : Fragment() {
-    private lateinit var commentsContainer: LinearLayout
+    private lateinit var commentsContainer: RecyclerView
     private lateinit var comments: LiveData<List<Comment>>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,17 +38,15 @@ class PostdetailsFragment : Fragment() {
         binding.postdetailsViewModel = postdetailsViewModel
         binding.setLifecycleOwner(this)
 
+        val adapter = CommentsAdapter()
+        binding.commentsRecycler.adapter = adapter
         comments = postdetailsViewModel.commentsFromDatabase
-        commentsContainer = binding.commentsContainer
-        comments.observe(this,{
-                newData -> for(elm in newData){
-            val newTextField = TextView(context, null, R.style.btnStyle, R.style.btnStyle)
-            newTextField.text = "${elm.name} \n \n ${elm.email} \n \n ${elm.body} \n \n"
-            newTextField.setOnClickListener{
-                requireView().findNavController().navigate(PostlistFragmentDirections.actionPostlistFragmentToPostdetailsFragment(elm.id))
+        commentsContainer = binding.commentsRecycler
+
+        comments.observe(viewLifecycleOwner,{
+            it?.let{
+                adapter.data = it
             }
-            commentsContainer.addView(newTextField)
-        }
         })
 
 
