@@ -30,8 +30,7 @@ class PostlistFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         val dataSource = PostsDatabase.getInstance(application).databaseDao
         val viewModelFactory = PostlistViewModelFactory(dataSource, application)
-        val postListViewModel = ViewModelProvider(this, viewModelFactory)
-            .get(PostlistViewModel::class.java)
+        val postListViewModel = ViewModelProvider(this, viewModelFactory)[PostlistViewModel::class.java]
         binding.postListViewModel = postListViewModel
         binding.lifecycleOwner = this
 
@@ -42,7 +41,7 @@ class PostlistFragment : Fragment() {
 
         posts.observe(viewLifecycleOwner, Observer {
             it?.let{
-                adapter.data = it
+                adapter.submitList(it)
             }
         })
 
