@@ -31,5 +31,4 @@ interface DatabaseDao {
     @Query("SELECT * from comments_table where post_id = :key")
     fun getComments(key: Long): LiveData<List<Comment>>
 
-
 }

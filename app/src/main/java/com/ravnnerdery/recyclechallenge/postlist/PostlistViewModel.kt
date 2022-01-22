@@ -31,7 +31,7 @@ class PostlistViewModel(
     private fun loadFromApiAndSetIntoDatabase() {
         PostsApi.retrofitService.getPosts().enqueue(object: Callback<List<Post>> {
             override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
-                for(elm in response.body()!!){
+                response.body()?.forEach { elm ->
                     addPostToDatabase(elm.id, elm.title, elm.body)
                 }
             }
@@ -42,7 +42,7 @@ class PostlistViewModel(
         })
         PostsApi.retrofitService.getComments().enqueue(object: Callback<List<Comment>> {
             override fun onResponse(call: Call<List<Comment>>, response: Response<List<Comment>>) {
-                for(elm in response.body()!!){
+                response.body()?.forEach { elm ->
                     addCommentToDatabase(elm.id,elm.name,elm.email,elm.body,elm.postId)
                 }
             }
@@ -54,39 +54,29 @@ class PostlistViewModel(
     }
 
     private fun addPostToDatabase(id: Long, title: String, body: String){
-        uiScope.launch {
+        uiScope.launch(Dispatchers.IO) {
             val newPost = Post(id, title, body)
-            insertSinglePost(newPost)
-
+            val sample = database.getSpecificPost(newPost.id)
+            if(sample.isEmpty()) database.insertPost(newPost)
         }
     }
-    private suspend fun insertSinglePost(post: Post) {
-        return withContext(Dispatchers.IO){
-            val sample = database.getSpecificPost(post.id)
-            if(sample.size === 0) database.insertPost(post)
 
-        }
-
-    }
     private fun addCommentToDatabase(id: Long, name: String, email: String, body: String, postId: Long){
         uiScope.launch {
             val newComment = Comment(id, name, email, body, postId)
             insertSingleComment(newComment)
         }
     }
+
     private suspend fun insertSingleComment(comment: Comment) {
         return withContext(Dispatchers.IO){
             val sample = database.getSpecificComment(comment.id)
-            if(sample.size === 0)database.insertComment(comment)
+            if(sample.isEmpty())database.insertComment(comment)
         }
     }
+
     private fun clearDatabase(){
-        uiScope.launch {
-            clearAllDatabase()
-        }
-    }
-    private suspend fun clearAllDatabase(){
-        return withContext(Dispatchers.IO){
+        uiScope.launch(Dispatchers.IO) {
             database.deletePosts()
             database.deleteComments()
         }
