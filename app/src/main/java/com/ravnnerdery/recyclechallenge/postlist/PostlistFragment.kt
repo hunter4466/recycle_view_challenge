@@ -33,6 +33,7 @@ class PostlistFragment : Fragment() {
         val postListViewModel = ViewModelProvider(this, viewModelFactory)[PostlistViewModel::class.java]
         val swypeContainer = binding.postListSwypeContainer
         binding.postListViewModel = postListViewModel
+        binding.lifecycleOwner = this
 
         val adapter = PostsAdapter()
         binding.postListRecycler.adapter = adapter

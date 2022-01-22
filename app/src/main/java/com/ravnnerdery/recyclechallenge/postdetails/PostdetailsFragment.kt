@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentContainer
 import androidx.lifecycle.LiveData
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +27,7 @@ class PostdetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        println("<<<<<TRACKING START>>>>>")
         val binding: PostdetailsFragmentBinding = DataBindingUtil.inflate(
             inflater, R.layout.postdetails_fragment, container, false
         )
@@ -37,6 +39,7 @@ class PostdetailsFragment : Fragment() {
             .get(PostdetailsViewModel::class.java)
         val swypeContainer = binding.postDetailsSwypeContainer
         binding.postdetailsViewModel = postdetailsViewModel
+        binding.lifecycleOwner = this
 
         val adapter = CommentsAdapter()
         binding.commentsRecycler.adapter = adapter
@@ -55,9 +58,13 @@ class PostdetailsFragment : Fragment() {
             })
         }
 
-
-
+        println("<<<<<TRACKING END>>>>>")
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        println("<<<<<THIS WORKS>>>>>")
+        super.onDestroyView()
     }
 
 }

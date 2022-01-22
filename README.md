@@ -6,6 +6,7 @@ Finally the app shows a list of clickable posts that delivers the user to a anot
 
 ![image](./screenshots/Capture1.png)
 ![image](./screenshots/Capture2.png)
+![image](./screenshots/Capture3.png)
 
 ## Built With
 
