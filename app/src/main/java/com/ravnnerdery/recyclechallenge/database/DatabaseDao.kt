@@ -26,9 +26,9 @@ interface DatabaseDao {
     fun deletePosts()
 
     @Query("SELECT * from posts_table")
-    fun getPosts(): LiveData<List<Post>>
+    fun getPosts(): LiveData<List<Post>>?
 
     @Query("SELECT * from comments_table where post_id = :key")
-    fun getComments(key: Long): LiveData<List<Comment>>
+    fun getComments(key: Long): LiveData<List<Comment>>?
 
 }

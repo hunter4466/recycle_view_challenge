@@ -26,7 +26,7 @@ class PostdetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding: PostdetailsFragmentBinding = DataBindingUtil.inflate(
             inflater, R.layout.postdetails_fragment, container, false
         )
@@ -34,15 +34,18 @@ class PostdetailsFragment : Fragment() {
         val args = PostdetailsFragmentArgs.fromBundle(requireArguments())
         val dataSource = PostsDatabase.getInstance(application).databaseDao
         val viewModelFactory = PostdetailsViewModelFactory(dataSource, application, args.id)
-        val postdetailsViewModel = ViewModelProvider(this, viewModelFactory)
-            .get(PostdetailsViewModel::class.java)
+        val postdetailsViewModel = ViewModelProvider(this, viewModelFactory)[PostdetailsViewModel::class.java]
         val swypeContainer = binding.postDetailsSwypeContainer
         binding.postdetailsViewModel = postdetailsViewModel
         binding.lifecycleOwner = this
 
         val adapter = CommentsAdapter()
         binding.commentsRecycler.adapter = adapter
-        comments = postdetailsViewModel.commentsFromDatabase
+        postdetailsViewModel.commentsFromDatabase.also {
+            if (it != null) {
+                comments = it
+            }
+        }
         commentsContainer = binding.commentsRecycler
 
         comments.observe(viewLifecycleOwner,{

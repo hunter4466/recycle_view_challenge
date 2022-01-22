@@ -38,7 +38,12 @@ class PostlistFragment : Fragment() {
             id -> postListViewModel.onPostClicked(id)
         })
         binding.postListRecycler.adapter = adapter
-        posts = postListViewModel.allPostsFromDatabase
+
+        postListViewModel.allPostsFromDatabase.also {
+            if (it != null) {
+                posts = it
+            }
+        }
         posts.observe(viewLifecycleOwner, Observer {
             it?.let{
                 adapter.submitList(it)
