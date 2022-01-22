@@ -6,18 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.FragmentContainer
 import androidx.lifecycle.LiveData
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.ravnnerdery.recyclechallenge.R
 import com.ravnnerdery.recyclechallenge.database.PostsDatabase
 import com.ravnnerdery.recyclechallenge.database.tables.Comment
 import com.ravnnerdery.recyclechallenge.databinding.PostdetailsFragmentBinding
-import com.ravnnerdery.recyclechallenge.postlist.PostlistFragmentDirections
 
 
 class PostdetailsFragment : Fragment() {
@@ -34,7 +29,8 @@ class PostdetailsFragment : Fragment() {
         val args = PostdetailsFragmentArgs.fromBundle(requireArguments())
         val dataSource = PostsDatabase.getInstance(application).databaseDao
         val viewModelFactory = PostdetailsViewModelFactory(dataSource, application, args.id)
-        val postdetailsViewModel = ViewModelProvider(this, viewModelFactory)[PostdetailsViewModel::class.java]
+        val postdetailsViewModel =
+            ViewModelProvider(this, viewModelFactory)[PostdetailsViewModel::class.java]
         val swypeContainer = binding.postDetailsSwypeContainer
         binding.postdetailsViewModel = postdetailsViewModel
         binding.lifecycleOwner = this
@@ -48,8 +44,8 @@ class PostdetailsFragment : Fragment() {
         }
         commentsContainer = binding.commentsRecycler
 
-        comments.observe(viewLifecycleOwner,{
-            it?.let{
+        comments.observe(viewLifecycleOwner, {
+            it?.let {
                 adapter.submitList(it)
             }
         })
@@ -63,7 +59,6 @@ class PostdetailsFragment : Fragment() {
 
         return binding.root
     }
-
 
 
 }

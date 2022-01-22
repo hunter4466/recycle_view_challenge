@@ -13,7 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.Runnable
-import java.util.*
+
 private lateinit var runnable: Runnable
 
 class PostlistViewModel(
@@ -21,17 +21,18 @@ class PostlistViewModel(
     application: Application
 ) : AndroidViewModel(application) {
     private var handler = Handler()
+
     init {
         loadFromApiAndSetIntoDatabase()
         runAutoRefresh()
     }
 
     private fun runAutoRefresh() {
-            runnable = Runnable {
-                loadFromApiAndSetIntoDatabase()
-                runAutoRefresh()
-            }
-            handler.postDelayed(runnable, 900000)
+        runnable = Runnable {
+            loadFromApiAndSetIntoDatabase()
+            runAutoRefresh()
+        }
+        handler.postDelayed(runnable, 900000)
     }
 
 
@@ -45,7 +46,7 @@ class PostlistViewModel(
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     val allPostsFromDatabase = database.getPosts()
     private fun loadFromApiAndSetIntoDatabase() {
-        PostsApi.retrofitService.getPosts().enqueue(object: Callback<List<Post>> {
+        PostsApi.retrofitService.getPosts().enqueue(object : Callback<List<Post>> {
             override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
                 response.body()?.forEach { elm ->
                     addPostToDatabase(elm.id, elm.title, elm.body)
@@ -56,10 +57,10 @@ class PostlistViewModel(
                 println(t.message)
             }
         })
-        PostsApi.retrofitService.getComments().enqueue(object: Callback<List<Comment>> {
+        PostsApi.retrofitService.getComments().enqueue(object : Callback<List<Comment>> {
             override fun onResponse(call: Call<List<Comment>>, response: Response<List<Comment>>) {
                 response.body()?.forEach { elm ->
-                    addCommentToDatabase(elm.id,elm.name,elm.email,elm.body,elm.postId)
+                    addCommentToDatabase(elm.id, elm.name, elm.email, elm.body, elm.postId)
                 }
             }
 
@@ -69,15 +70,21 @@ class PostlistViewModel(
         })
     }
 
-    private fun addPostToDatabase(id: Long, title: String, body: String){
+    private fun addPostToDatabase(id: Long, title: String, body: String) {
         uiScope.launch(Dispatchers.IO) {
             val newPost = Post(id, title, body)
             val sample = database.getSpecificPost(newPost.id)
-            if(sample.isEmpty()) database.insertPost(newPost)
+            if (sample.isEmpty()) database.insertPost(newPost)
         }
     }
 
-    private fun addCommentToDatabase(id: Long, name: String, email: String, body: String, postId: Long){
+    private fun addCommentToDatabase(
+        id: Long,
+        name: String,
+        email: String,
+        body: String,
+        postId: Long
+    ) {
         uiScope.launch {
             val newComment = Comment(id, name, email, body, postId)
             insertSingleComment(newComment)
@@ -85,13 +92,13 @@ class PostlistViewModel(
     }
 
     private suspend fun insertSingleComment(comment: Comment) {
-        return withContext(Dispatchers.IO){
+        return withContext(Dispatchers.IO) {
             val sample = database.getSpecificComment(comment.id)
-            if(sample.isEmpty())database.insertComment(comment)
+            if (sample.isEmpty()) database.insertComment(comment)
         }
     }
 
-    private fun clearDatabase(){
+    private fun clearDatabase() {
         uiScope.launch(Dispatchers.IO) {
             database.deletePosts()
             database.deleteComments()
@@ -106,7 +113,7 @@ class PostlistViewModel(
         _navigateToDetails.value = id
     }
 
-    fun onPostDetailsNavigated(){
+    fun onPostDetailsNavigated() {
         _navigateToDetails.value = null
     }
 

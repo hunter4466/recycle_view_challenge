@@ -3,7 +3,6 @@ package com.ravnnerdery.recyclechallenge.postlist
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.ravnnerdery.recyclechallenge.database.tables.Post
-import kotlinx.android.synthetic.main.comment_text.view.*
 
 @BindingAdapter("capitalizeTitle")
 fun TextView.setCapitalizedTitle(item: Post?){

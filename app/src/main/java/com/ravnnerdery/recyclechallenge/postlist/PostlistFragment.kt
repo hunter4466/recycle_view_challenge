@@ -27,15 +27,15 @@ class PostlistFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         val dataSource = PostsDatabase.getInstance(application).databaseDao
         val viewModelFactory = PostlistViewModelFactory(dataSource, application)
-        val postListViewModel = ViewModelProvider(this, viewModelFactory)[PostlistViewModel::class.java]
-
+        val postListViewModel =
+            ViewModelProvider(this, viewModelFactory)[PostlistViewModel::class.java]
 
         val swypeContainer = binding.postListSwypeContainer
         binding.postListViewModel = postListViewModel
         binding.lifecycleOwner = this
 
-        val adapter = PostsAdapter(PostListener {
-            id -> postListViewModel.onPostClicked(id)
+        val adapter = PostsAdapter(PostListener { id ->
+            postListViewModel.onPostClicked(id)
         })
         binding.postListRecycler.adapter = adapter
 
@@ -45,14 +45,16 @@ class PostlistFragment : Fragment() {
             }
         }
         posts.observe(viewLifecycleOwner, Observer {
-            it?.let{
+            it?.let {
                 adapter.submitList(it)
             }
         })
 
         postListViewModel.navigateToDetails.observe(this, Observer { post ->
             post?.let {
-                this.findNavController().navigate(PostlistFragmentDirections.actionPostlistFragmentToPostdetailsFragment(post))
+                this.findNavController().navigate(
+                    PostlistFragmentDirections.actionPostlistFragmentToPostdetailsFragment(post)
+                )
                 postListViewModel.onPostDetailsNavigated()
             }
         })

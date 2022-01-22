@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:text="Some template text on title"
+        android:text="@string/some_template_text_on_title"
         android:textSize="20sp" />
 
     <TextView
@@ -22,12 +22,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:text="sometemplated@email.com" />
+        android:text="@string/sometemplated_email_com" />
 
     <TextView
         android:id="@+id/contentText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body " />
+        android:text="@string/some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body" />
 
 </LinearLayout>

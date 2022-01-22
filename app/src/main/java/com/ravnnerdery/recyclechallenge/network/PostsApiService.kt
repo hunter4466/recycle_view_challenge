@@ -25,8 +25,9 @@ interface PostsApiService {
     @GET("comments")
     fun getComments(): Call<List<Comment>>
 }
+
 object PostsApi {
-    val retrofitService : PostsApiService by lazy {
+    val retrofitService: PostsApiService by lazy {
         retrofit.create(PostsApiService::class.java)
     }
 }

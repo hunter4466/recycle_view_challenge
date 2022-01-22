@@ -2,11 +2,10 @@ package com.ravnnerdery.recyclechallenge.database.tables
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "comments_table")
-class Comment (
+class Comment(
     @PrimaryKey(autoGenerate = false)
     var id: Long,
     @ColumnInfo(name = "comment_name")
@@ -15,6 +14,6 @@ class Comment (
     var email: String,
     @ColumnInfo(name = "comment_body")
     var body: String,
-    @ColumnInfo(name= "post_id")
+    @ColumnInfo(name = "post_id")
     var postId: Long,
 )
