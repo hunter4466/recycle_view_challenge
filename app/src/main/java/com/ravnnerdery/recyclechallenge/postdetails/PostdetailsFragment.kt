@@ -27,7 +27,6 @@ class PostdetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        println("<<<<<TRACKING START>>>>>")
         val binding: PostdetailsFragmentBinding = DataBindingUtil.inflate(
             inflater, R.layout.postdetails_fragment, container, false
         )
@@ -58,13 +57,10 @@ class PostdetailsFragment : Fragment() {
             })
         }
 
-        println("<<<<<TRACKING END>>>>>")
+
         return binding.root
     }
 
-    override fun onDestroyView() {
-        println("<<<<<THIS WORKS>>>>>")
-        super.onDestroyView()
-    }
+
 
 }

@@ -2,18 +2,14 @@ package com.ravnnerdery.recyclechallenge.postlist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.ListAdapter
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.ravnnerdery.recyclechallenge.R
 import com.ravnnerdery.recyclechallenge.database.tables.Post
-import kotlinx.android.synthetic.main.comment_text.view.contentText
-import kotlinx.android.synthetic.main.comment_text.view.titleText
+import com.ravnnerdery.recyclechallenge.databinding.ButtonViewBinding
 
 
-class PostsAdapter: ListAdapter<Post, PostsAdapter.ViewHolder>(PostListDiffCallBack()) {
+class PostsAdapter(private val clickListener: PostListener): ListAdapter<Post, PostsAdapter.ViewHolder>(PostListDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
@@ -21,22 +17,21 @@ class PostsAdapter: ListAdapter<Post, PostsAdapter.ViewHolder>(PostListDiffCallB
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, clickListener)
     }
 
-    class ViewHolder private constructor (val postButton: LinearLayout): RecyclerView.ViewHolder(postButton){
-        fun bind(item: Post){
-            postButton.titleText.text = item.title[0].uppercaseChar() + item.title.substring(1)
-            postButton.contentText.text = item.body[0].uppercaseChar() + item.body.substring(1)
-            postButton.setOnClickListener{
-                it.findNavController().navigate(PostlistFragmentDirections.actionPostlistFragmentToPostdetailsFragment(item.id))
-            }
+    class ViewHolder private constructor (private val binding: ButtonViewBinding): RecyclerView.ViewHolder(binding.root){
+
+        fun bind(item: Post, clickListener: PostListener){
+            binding.post = item
+            binding.clickListener = clickListener
+            binding.executePendingBindings()
         }
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val view = layoutInflater.inflate(R.layout.button_view, parent, false) as LinearLayout
-                return ViewHolder(view)
+                val binding = ButtonViewBinding.inflate(layoutInflater, parent, false)
+                return ViewHolder(binding)
             }
         }
     }
@@ -51,4 +46,8 @@ class PostListDiffCallBack : DiffUtil.ItemCallback<Post>(){
     override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
         return oldItem.id == newItem.id
     }
+}
+
+class PostListener(val clickListener: (postId: Long) -> Unit){
+    fun onClick(post: Post) = clickListener(post.id)
 }

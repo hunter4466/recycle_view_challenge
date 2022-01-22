@@ -3,4 +3,6 @@
     <string name="textview">TextView</string>
     <string name="post_list">Post list</string>
     <string name="comments">Comments</string>
+    <string name="some_template_text_on_title">Some template text on title</string>
+    <string name="some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body">some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body</string>
 </resources>

@@ -9,17 +9,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
+import androidx.navigation.fragment.findNavController
 import com.ravnnerdery.recyclechallenge.R
 import com.ravnnerdery.recyclechallenge.database.PostsDatabase
 import com.ravnnerdery.recyclechallenge.database.tables.Post
 import com.ravnnerdery.recyclechallenge.databinding.PostlistFragmentBinding
 
 class PostlistFragment : Fragment() {
-
     private lateinit var posts: LiveData<List<Post>>
-    private lateinit var buttonsContainer: RecyclerView
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,18 +28,27 @@ class PostlistFragment : Fragment() {
         val dataSource = PostsDatabase.getInstance(application).databaseDao
         val viewModelFactory = PostlistViewModelFactory(dataSource, application)
         val postListViewModel = ViewModelProvider(this, viewModelFactory)[PostlistViewModel::class.java]
+
+
         val swypeContainer = binding.postListSwypeContainer
         binding.postListViewModel = postListViewModel
         binding.lifecycleOwner = this
 
-        val adapter = PostsAdapter()
+        val adapter = PostsAdapter(PostListener {
+            id -> postListViewModel.onPostClicked(id)
+        })
         binding.postListRecycler.adapter = adapter
         posts = postListViewModel.allPostsFromDatabase
-        buttonsContainer = binding.postListRecycler
-
         posts.observe(viewLifecycleOwner, Observer {
             it?.let{
                 adapter.submitList(it)
+            }
+        })
+
+        postListViewModel.navigateToDetails.observe(this, Observer { post ->
+            post?.let {
+                this.findNavController().navigate(PostlistFragmentDirections.actionPostlistFragmentToPostdetailsFragment(post))
+                postListViewModel.onPostDetailsNavigated()
             }
         })
 

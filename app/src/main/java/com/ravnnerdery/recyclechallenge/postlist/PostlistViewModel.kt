@@ -2,6 +2,7 @@ package com.ravnnerdery.recyclechallenge.postlist
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import com.ravnnerdery.recyclechallenge.database.tables.Comment
 import com.ravnnerdery.recyclechallenge.database.DatabaseDao
 import com.ravnnerdery.recyclechallenge.database.tables.Post
@@ -80,6 +81,18 @@ class PostlistViewModel(
             database.deletePosts()
             database.deleteComments()
         }
+    }
+
+    private val _navigateToDetails = MutableLiveData<Long?>()
+    val navigateToDetails
+        get() = _navigateToDetails
+
+    fun onPostClicked(id: Long) {
+        _navigateToDetails.value = id
+    }
+
+    fun onPostDetailsNavigated(){
+        _navigateToDetails.value = null
     }
 
 }
