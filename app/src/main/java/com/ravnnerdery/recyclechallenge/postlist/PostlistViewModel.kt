@@ -1,6 +1,7 @@
 package com.ravnnerdery.recyclechallenge.postlist
 
 import android.app.Application
+import android.os.Handler
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.ravnnerdery.recyclechallenge.database.tables.Comment
@@ -11,17 +12,31 @@ import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Runnable
+import java.util.*
+private lateinit var runnable: Runnable
 
 class PostlistViewModel(
     val database: DatabaseDao,
     application: Application
 ) : AndroidViewModel(application) {
-
+    private var handler = Handler()
     init {
         loadFromApiAndSetIntoDatabase()
+        runAutoRefresh()
     }
 
+    private fun runAutoRefresh() {
+            runnable = Runnable {
+                loadFromApiAndSetIntoDatabase()
+                runAutoRefresh()
+            }
+            handler.postDelayed(runnable, 900000)
+    }
+
+
     override fun onCleared() {
+        handler.removeCallbacksAndMessages(null)
         clearDatabase()
         super.onCleared()
     }
