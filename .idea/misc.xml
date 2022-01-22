@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/rio_c/Repos/ravn/recycle_view_challenge/app/src/main/res/drawable/button.xml" value="0.175" />
+        <entry key="..\:/Users/rio_c/Repos/ravn/recycle_view_challenge/app/src/main/res/drawable/custom_border.xml" value="0.3828125" />
+        <entry key="..\:/Users/rio_c/Repos/ravn/recycle_view_challenge/app/src/main/res/drawable/ic_launcher_background.xml" value="0.31354166666666666" />
+        <entry key="..\:/Users/rio_c/Repos/ravn/recycle_view_challenge/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/rio_c/Repos/ravn/recycle_view_challenge/app/src/main/res/layout/button_view.xml" value="0.3596014492753623" />
+        <entry key="..\:/Users/rio_c/Repos/ravn/recycle_view_challenge/app/src/main/res/layout/comment_text.xml" value="0.25" />
+        <entry key="..\:/Users/rio_c/Repos/ravn/recycle_view_challenge/app/src/main/res/layout/postdetails_fragment.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/rio_c/Repos/ravn/recycle_view_challenge/app/src/main/res/layout/postlist_fragment.xml" value="0.27309782608695654" />
+        <entry key="..\:/Users/rio_c/Repos/ravn/recycle_view_challenge/app/src/main/res/layout/text_item_view.xml" value="0.18020833333333333" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Recycle View Challenge</string>
+    <string name="textview">TextView</string>
+    <string name="post_list">Post list</string>
+    <string name="comments">Comments</string>
+    <string name="some_template_text_on_title">Some template text on title</string>
+    <string name="some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body">some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body</string>
+    <string name="some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body_some_template_body">some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body some template body</string>
+    <string name="sometemplated_email_com">sometemplated@email.com</string>
+    <string name="some_template_text_on_title">Some template text on title</string>
+</resources>
