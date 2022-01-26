@@ -44,6 +44,7 @@ class PostlistFragment : Fragment() {
                 posts = it
             }
         }
+
         posts.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
@@ -68,6 +69,5 @@ class PostlistFragment : Fragment() {
 
         return binding.root
     }
-
 }
 
